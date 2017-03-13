@@ -7,6 +7,13 @@ public class Main {
 			System.out.println(project);
 			System.out.println("wowa");
 			System.out.println("hallooo");
+			System.out.println("Andri er bestur í þessu!");
+			System.out.println("This is gunnar printing");
+			
+			if(project == 2){
+				System.out.println("we have a if!!");
+			}
+
 		}
 	
 	}
