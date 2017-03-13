@@ -6,7 +6,13 @@ public class Main {
 		for(int project = 0; project< 6; project = project+2){
 			System.out.println(project);
 			System.out.println("wowa");
+
+			System.out.println("Andri er bestur í þessu!");
+			System.out.println("Peter er bestur í þessu!");
+
+
 			System.out.println("This is gunnar printing");
+
 		}
 	
 	}
