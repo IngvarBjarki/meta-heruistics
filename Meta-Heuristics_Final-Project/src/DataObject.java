@@ -12,8 +12,10 @@ public class DataObject {
 	private String DataFile;
 	private StreamTokenizer streamReader;
 	private int numCount; // the number of numbers taken from the test file..
-	private SetObject[] sets;
+	
 	private int[] union;
+	private ArrayList<SetObject> sets = new ArrayList<SetObject>();
+	
 	
 	public DataObject(String Datafile) throws IOException
 	{
@@ -43,7 +45,6 @@ public class DataObject {
 		int numSets = 10000;
 		int setSize = 0;
 		int setCounter= 0; 
-		ArrayList<SetObject> sets = new ArrayList<SetObject>(); 
 		List<Integer> singleSet = new ArrayList<Integer>();
 		int temp = 0;
 		while(done == false){
@@ -52,6 +53,11 @@ public class DataObject {
 			if(numCount == -1){
 				// assigning the last "subset"
 				sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet)); 
+				System.out.println(sets.get(0).getSet());
+				System.out.println(sets.get(999).getCost());
+				System.out.println(sets.get(999).getSet());
+				System.out.println(sets.size());
+				System.out.println(counter);
 				done = true;
 			}
 
@@ -87,7 +93,12 @@ public class DataObject {
 	}
 	
 	
-	 private int nextNumber() throws IOException
+	 public ArrayList<SetObject> getSets() {
+		return sets;
+	}
+
+
+	private int nextNumber() throws IOException
 	    {
 		try{ streamReader.nextToken(); 
 		}

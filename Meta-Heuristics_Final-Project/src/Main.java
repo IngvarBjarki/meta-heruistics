@@ -8,8 +8,9 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		System.out.println("The final prject!");
 		DataObject data = new DataObject("src/scpnrg1.txt");
+		System.out.println(data.getSets().size());
 		System.out.println("done");
-	
+		
 	}
 
 }
