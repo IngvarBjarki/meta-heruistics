@@ -2,13 +2,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StreamTokenizer;
+import java.util.ArrayList;
 
 public class DataObject {
 
+	// held eg geri arry af objects ef eg þarf baedi kostand og set.
+	
 	private String DataFile;
 	private StreamTokenizer streamReader;
 	private int numCount; // the number of numbers taken from the test file..
-	
+	private SetObject[] sets;
+	private int[] union;
 	
 	public DataObject(String Datafile) throws IOException
 	{
@@ -30,24 +34,35 @@ public class DataObject {
 		
 	}
 	
-	private int counter = 0;
 	private void readFile() throws IOException{
 		this.numCount = nextNumber();
 		boolean done = false;
+		int numLine = 0;
+		int counter = 0;
+		int numSets = 10;
+		ArrayList<SetObject> sets = new ArrayList<SetObject>(); 
 		while(done == false){
-			System.out.println(numCount);
+			
 			this.numCount = nextNumber();
 			if(numCount == -1){
 				done = true;
 			}
-			
-			if(counter > 30){
-				System.out.println("counter says break!!");
-				break;
+			if(numCount == -2){
+				//System.out.println("new line");
+				numLine++;
+			}
+
+			if(counter < numSets){
+				String setName = "set" + counter;
+				sets.add(new SetObject(setName, numCount));
+			}
+			if(counter == 11){
+				System.out.println(sets);
+				System.out.println(sets.get(1).getName());
 			}
 			
-			counter++;
-
+			counter ++;
+			
 		}
 		
 	}
@@ -55,7 +70,9 @@ public class DataObject {
 	
 	 private int nextNumber() throws IOException
 	    {
-		try{ streamReader.nextToken(); }
+		try{ streamReader.nextToken(); 
+		streamReader.eolIsSignificant(true);
+		}
 		catch(IOException e)
 		    {
 			System.err.println("Error: Failed to get next number. Is the file open?");
@@ -63,13 +80,21 @@ public class DataObject {
 		    }
 		if(streamReader.ttype == StreamTokenizer.TT_EOF)
 		    {
-			return -1; // held tetta se end of file
+			return -1; // this is end of file
 		    }
+		if(streamReader.ttype  == StreamTokenizer.TT_EOL)
+	    {
+		//System.out.println("starting line: " + streamReader.lineno());
+		return -2; // this is end of line
+	    }
+		
 		if(streamReader.ttype != StreamTokenizer.TT_NUMBER)
 		    {
 			System.err.println("Error: Found something other than a number on line " + streamReader.lineno());
 			System.exit(-1);
 		    }
+	
+		
 		return (int) streamReader.nval;
 	    }
 	
