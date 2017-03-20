@@ -43,15 +43,18 @@ public class DataObject {
 		int numSets = 10000;
 		int setSize = 0;
 		int setCounter= -1; // so we start at 0 when adding to the list
-		boolean newSet = false;
+		boolean firstSet = false;
 		ArrayList<SetObject> sets = new ArrayList<SetObject>(); 
 		List<Integer> singleSet = new ArrayList<Integer>();
 		while(done == false){
 			
 			this.numCount = nextNumber();
 			if(numCount == -1){
+				// some printing to look at, at the end,  then, ofc, delate
 				System.out.println(sets.size());
 				System.out.println(sets.get(0).getSet());
+				System.out.println(sets.get(1).getSet());
+				System.out.println(sets.get(2).getSet());
 				System.out.println(sets.get(numSets-2).getName());
 				System.out.println(sets.get(numSets-2).getCost());
 				System.out.println(setCounter);
@@ -59,36 +62,39 @@ public class DataObject {
 			}
 
 			if(counter < numSets-1){
+				// we were selecting one to many items, we add -1 since we start at 0
 				String setName = "set" + counter;
 				sets.add(new SetObject(setName, numCount));
-				newSet = true;
+				firstSet = true;
 			}
 			else{
-				if(newSet){
-//herna a ad koma 204 ekki 27					
+				if(firstSet){
+					// lets find all the elements for the first set and 
+					// and go to the begining of the loop to start adding to it
 					setSize = numCount;
-					newSet = false;
+					firstSet = false;
 					setCounter++;
-					System.out.print(setSize);
 					continue;
 					
 				}
 				
 				if(setSize != singleSet.size()){
+					//while the does not have all the numbers it should have, lets add to it
 					singleSet.add(numCount);
-					System.out.println(setSize);
 				}
 				else{
-					
+					// lets make the set objects have the "subsets" and clear the current set so we can add to the next one
 					sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet));
 					singleSet.clear();
-					newSet = true;
+					// find out how many elements are in the next set
+					setSize = numCount;
+					setCounter++;
 				}
 						
 			}
 			counter ++;
 		}
-		
+		// posibly return the objects so we can use them in other objects..
 	}
 	
 	
