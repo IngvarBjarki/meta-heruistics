@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataObject {
 
@@ -39,12 +40,19 @@ public class DataObject {
 		boolean done = false;
 		int numLine = 0;
 		int counter = 0;
-		int numSets = 10;
+		int numSets = 10000;
+		int setSize = 0;
+		int setCounter= 0;
+		boolean newSet = false;
 		ArrayList<SetObject> sets = new ArrayList<SetObject>(); 
+		List<Integer> singleSet = new ArrayList<Integer>();
 		while(done == false){
 			
 			this.numCount = nextNumber();
 			if(numCount == -1){
+				System.out.println(sets.size());
+				System.out.println(sets.get(3).getSet());
+				System.out.println(sets.get(3).getName());
 				done = true;
 			}
 			if(numCount == -2){
@@ -55,14 +63,29 @@ public class DataObject {
 			if(counter < numSets){
 				String setName = "set" + counter;
 				sets.add(new SetObject(setName, numCount));
+				newSet = true;
 			}
-			if(counter == 11){
-				System.out.println(sets);
-				System.out.println(sets.get(1).getName());
+			else{
+				if(newSet){
+					
+					setSize = numCount;
+					newSet = false;
+					setCounter++;
+				}
+				
+				if(setSize != singleSet.size()){
+					singleSet.add(numCount);
+					
+				}
+				else{
+					
+					sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet));
+					singleSet.clear();
+					newSet = true;
+				}
+						
 			}
-			
 			counter ++;
-			
 		}
 		
 	}
@@ -71,7 +94,6 @@ public class DataObject {
 	 private int nextNumber() throws IOException
 	    {
 		try{ streamReader.nextToken(); 
-		streamReader.eolIsSignificant(true);
 		}
 		catch(IOException e)
 		    {
@@ -82,11 +104,6 @@ public class DataObject {
 		    {
 			return -1; // this is end of file
 		    }
-		if(streamReader.ttype  == StreamTokenizer.TT_EOL)
-	    {
-		//System.out.println("starting line: " + streamReader.lineno());
-		return -2; // this is end of line
-	    }
 		
 		if(streamReader.ttype != StreamTokenizer.TT_NUMBER)
 		    {

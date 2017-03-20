@@ -18,6 +18,10 @@ public class SetObject {
 	public String getName() {
 		return name;
 	}
+
+	public List<Integer> getSet() {
+		return set;
+	}
 	
 	
  
