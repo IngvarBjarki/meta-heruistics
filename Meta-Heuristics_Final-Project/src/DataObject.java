@@ -42,7 +42,7 @@ public class DataObject {
 		int counter = 0;
 		int numSets = 10000;
 		int setSize = 0;
-		int setCounter= 0;
+		int setCounter= -1; // so we start at 0 when adding to the list
 		boolean newSet = false;
 		ArrayList<SetObject> sets = new ArrayList<SetObject>(); 
 		List<Integer> singleSet = new ArrayList<Integer>();
@@ -53,11 +53,8 @@ public class DataObject {
 				System.out.println(sets.size());
 				System.out.println(sets.get(3).getSet());
 				System.out.println(sets.get(3).getName());
+				System.out.println(setCounter);
 				done = true;
-			}
-			if(numCount == -2){
-				//System.out.println("new line");
-				numLine++;
 			}
 
 			if(counter < numSets){
