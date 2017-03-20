@@ -52,27 +52,31 @@ public class DataObject {
 			if(numCount == -1){
 				System.out.println(sets.size());
 				System.out.println(sets.get(0).getSet());
-				System.out.println(sets.get(0).getName());
+				System.out.println(sets.get(numSets-2).getName());
+				System.out.println(sets.get(numSets-2).getCost());
 				System.out.println(setCounter);
 				done = true;
 			}
 
-			if(counter < numSets){
+			if(counter < numSets-1){
 				String setName = "set" + counter;
 				sets.add(new SetObject(setName, numCount));
 				newSet = true;
 			}
 			else{
 				if(newSet){
-					
+//herna a ad koma 204 ekki 27					
 					setSize = numCount;
 					newSet = false;
 					setCounter++;
+					System.out.print(setSize);
+					continue;
+					
 				}
 				
 				if(setSize != singleSet.size()){
 					singleSet.add(numCount);
-					
+					System.out.println(setSize);
 				}
 				else{
 					

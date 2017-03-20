@@ -19,6 +19,10 @@ public class SetObject {
 		return name;
 	}
 
+	public int getCost() {
+		return cost;
+	}
+
 	public List<Integer> getSet() {
 		return set;
 	}
