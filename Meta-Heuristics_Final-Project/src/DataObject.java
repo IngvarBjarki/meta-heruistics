@@ -50,18 +50,21 @@ public class DataObject {
 			
 			this.numCount = nextNumber();
 			if(numCount == -1){
-				// some printing to look at, at the end,  then, ofc, delate
+				// some printing to look at, at the end,  then, ofc, delete
 				System.out.println(sets.size());
 				System.out.println(sets.get(0).getSet());
 				System.out.println(sets.get(1).getSet());
 				System.out.println(sets.get(2).getSet());
-				System.out.println(sets.get(numSets-2).getName());
-				System.out.println(sets.get(numSets-2).getCost());
-				System.out.println(setCounter);
+				System.out.println(sets.get(60).getSet());
+				System.out.println(sets.get(999).getSet());
+				
+				//System.out.println(sets.get(numSets-2).getName());
+				//System.out.println(sets.get(numSets-2).getCost());
+				//System.out.println(setCounter);
 				done = true;
 			}
 
-			if(counter < numSets-1){
+			if(counter < numSets){
 				// we were selecting one to many items, we add -1 since we start at 0
 				String setName = "set" + counter;
 				sets.add(new SetObject(setName, numCount));
