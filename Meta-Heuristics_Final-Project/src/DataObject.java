@@ -51,8 +51,8 @@ public class DataObject {
 			this.numCount = nextNumber();
 			if(numCount == -1){
 				System.out.println(sets.size());
-				System.out.println(sets.get(3).getSet());
-				System.out.println(sets.get(3).getName());
+				System.out.println(sets.get(0).getSet());
+				System.out.println(sets.get(0).getName());
 				System.out.println(setCounter);
 				done = true;
 			}
