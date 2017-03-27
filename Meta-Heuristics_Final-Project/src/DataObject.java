@@ -53,8 +53,13 @@ public class DataObject {
 			
 			this.numCount = nextNumber();
 			if(numCount == -1){
+
+				// some printing to look at, at the end,  then, ofc, delete
+				System.out.println(sets.size());
+				
 				// assigning the last "subset"
 				sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet)); 
+				
 				System.out.println("data is ready");
 				System.out.println(counter);
 				System.out.println("AllCOSTS!!");
@@ -68,6 +73,7 @@ public class DataObject {
 				System.out.println(allCosts.get(0));
 				System.out.println(allCosts.size());
 				System.out.println(allCosts.get(1000));*/
+
 				done = true;
 			}
 
