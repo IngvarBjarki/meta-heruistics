@@ -41,14 +41,16 @@ public class DataObject {
 		//this.numCount = nextNumber();
 		boolean done = false;
 		int counter = 0;
-		int numColums = 10000;
-		int numSets = 1000;
-		int setSize = 0;
-		int setCounter= 0;
+		int numSets = 500;//10000;
+		int numElements = 50;//1000;
+		int setInElementSize = 0;
+		//int setCounter= 0;
 
-		List<Integer> singleSet = new ArrayList<Integer>();
-		List<Integer> allCosts = new ArrayList<Integer>();
-		List<Integer> costSet = new ArrayList<Integer>();
+		List<Integer> setsInElement = new ArrayList<Integer>();
+		
+		// this one is dynamic.. that is the length of it tells the number of what element we are examining
+		// that is first we pick the first element(length=0), and assign element 0 to all the sets that are in this row
+		List<Integer> numElement = new ArrayList<Integer>(); 
 		while(done == false){
 			
 			this.numCount = nextNumber();
@@ -58,16 +60,21 @@ public class DataObject {
 				System.out.println(sets.size());
 				
 				// assigning the last "subset"
-				sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet)); 
+				//SKOÐA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SEINASTA ELM
+				//sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet)); 
 				
 				System.out.println("data is ready");
 				System.out.println(counter);
-				System.out.println("AllCOSTS!!");
-				System.out.println(allCosts);
 				
-				System.out.println("Her er totalcostid a fyrsta data setinu, og sidan gildin sem eru logd saman");
-				System.out.println(sets.get(0).getTotalCost());
-				System.out.println(sets.get(0).getCosts());
+				
+				System.out.println("asdlfuahdglaudshgladsuighaldugajæsdigjasdg");
+				System.out.println(sets.get(400).getElements()); // 8 to get set 9.. [0 is 1]
+				System.out.println(sets.size());
+				System.out.println(sets.get(400).getElements().size());
+				
+				
+				System.out.println("asdlfuahdglaudshgladsuighaldugajæsdigjasdg");
+				System.out.println(numElement.size());
 				
 				/*System.out.println("index for all costs");
 				System.out.println(allCosts.get(0));
@@ -77,7 +84,7 @@ public class DataObject {
 				done = true;
 			}
 
-			if(counter < numColums+1){
+			if(counter < numSets+1){
 				
 				if(counter <numSets){
 					//make our sets
@@ -86,35 +93,31 @@ public class DataObject {
 					
 				}
 
-				if(numColums == counter){
+				if(numSets == counter){
 					// the final value of this if setnace (if(counter<numColums)) is the first value
 					// that tells us how many are in the next set
 					System.out.println(counter);
-					setSize = numCount;
-				}
-				else{
-					// this one is here since then we wont add the last element to it, that is
-					// the element from the dataset that denotes how long next subset is
-					allCosts.add(numCount);
+					setInElementSize = numCount;
+					numElement.add(setInElementSize);
+					System.out.println("this is numcount...");
+					System.out.println(setInElementSize);
 				}
 			}
 			else{
 				
-				if(setSize != singleSet.size()){
+				if(setInElementSize != setsInElement.size()){
 					//if the singleSet does not contain all the numbers it should have in its set, lets add them to it
-					singleSet.add(numCount);
-					costSet.add(allCosts.get(numCount-1)); // minus one, since numcount is [1 10000] and allCosts is [0 9999]
+					setsInElement.add(numCount); 
+					
+					// NYJA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					sets.get(numCount-1).addElements(numElement.size());
 				}
 				else{
-					// lets make the set objects have the "subsets" and clear the current set so we can add to the next one
-					sets.get(setCounter).setSet(new ArrayList<Integer>(singleSet));
-					sets.get(setCounter).setCosts(new ArrayList<Integer>(costSet));
-
-					singleSet.clear();
-					costSet.clear();
+					// þarf fyrir nyja!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 					
-					setSize = numCount; // find out how many elements are in the next set
-					setCounter++; // for selecting the next obj in the sets list
+					setsInElement.clear();
+					setInElementSize = numCount; // find out how many elements are in the next set
+					numElement.add(setInElementSize);
 				}
 						
 			}
