@@ -34,6 +34,9 @@ public class Main {
 		System.out.println(rand.nextInt(RCL.size()));
 		System.out.println(rand.nextInt(RCL.size()));
 		
+		HillClimber hill = new HillClimber(RCL.get(0),data.getSets());
+		hill.calculateSolution(10);
+		
 		System.out.println("RCL");
 		System.out.println(RCL);
 		System.out.println(RCL.size());
