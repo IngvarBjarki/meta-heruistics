@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DataObject {
@@ -162,42 +163,53 @@ public class DataObject {
 		
 		// Initilize variables
 		List<SetObject> bestList = new ArrayList<SetObject>();
-		float worstCostSizeRatio = (float) sets.get(0).getCost() / sets.get(0).getElements().size();
-		SetObject worstChosenSet = sets.get(0);
 		SetObject tempWorstChosenSet = null;
 		float temp_costSizeRatio = Float.POSITIVE_INFINITY;
 		
+		Collections.reverse(sets);
+		float worstCostSizeRatio = (float) sets.get(0).getCost() / sets.get(0).getElements().size();
+		SetObject worstChosenSet = sets.get(0);
 		// ATH essi lykkja á að fara út!!!!! það er bara til að skoða setinn
-		for (SetObject set : this.sets) {
-			System.out.println("sets:" + set.getElements());
-			System.out.println("length of sets:" + set.getElements().size());
-		}
+//		for (SetObject set : this.sets) {
+//			System.out.println("sets:" + set.getElements());
+//			System.out.println("length of sets:" + set.getElements().size());
+//		}
 		
 		for (int i = 0; i < numSets; i++) {
 			// add to list until it is full
 			temp_costSizeRatio = (float) sets.get(i).getCost() / sets.get(i).getElements().size();
 			if (i < k) {
 				bestList.add(sets.get(i));
+				System.out.println("temp_costSizeRatio " + temp_costSizeRatio + " worstCostSizeRatio " + worstCostSizeRatio);
 				if (temp_costSizeRatio > worstCostSizeRatio) {
 					// þetta er svona (>) herna vegna þess að við erum að öddum alltaf fyrstu k inn þvi þeir eru bestir..
 					// og þá erum við að reyna finna versta af þeim, á meðan hérna fyrir neðan í else lykkjuni þá erum við að
 					// passa að adda ekki inn eithverjum sem er ekki betri en núverandi versta set
 					worstCostSizeRatio = temp_costSizeRatio;
 					worstChosenSet = sets.get(i);
+//					System.out.println("INGVARINGVARINGVAR  INGVAR............... INGVAR");
 				}
 			} else {
-				System.out.println("temp_costRatio"+temp_costSizeRatio);
-				System.out.println("worstCostSizeRatio"+worstCostSizeRatio);
+//				System.out.println("temp_costRatio"+temp_costSizeRatio);
+//				System.out.println("worstCostSizeRatio"+worstCostSizeRatio);
 				if (temp_costSizeRatio < worstCostSizeRatio) {
+					System.out.println("hallo! .........           .........");
 					bestList.remove(worstChosenSet);
 					bestList.add(sets.get(i));
 					//finding the worst value in the best list
+					boolean first = true;
 					for (SetObject set : bestList) {
-			             System.out.println("Count is: asdfasdfasdfasdf");
+//			             System.out.println("Count is: asdfasdfasdfasdf");
+						if(first){
+							first = false;
+							worstChosenSet = set;
+						}
 			             float setRatio = (float) set.getCost() / set.getElements().size();
 			             float tempWorstChosenSetRatio = (float) worstChosenSet.getCost() / worstChosenSet.getElements().size();
+			             //System.out.println("setRatio " + setRatio + " tempWorstChosenSetRatio " + tempWorstChosenSetRatio);
 			             if(setRatio > tempWorstChosenSetRatio  ){
-			            	 tempWorstChosenSet = set;
+			            	 System.out.println("hallo");
+			            	 worstChosenSet = set;
 			             }
 			             worstCostSizeRatio = tempWorstChosenSetRatio;
 			         }
@@ -205,10 +217,14 @@ public class DataObject {
 				}
 			}
 		}
-		System.out.println(bestList);
+//		System.out.println(bestList);
 		for(SetObject set: bestList){
 			System.out.println("one of the bests: " + set.getName());
 		}
+		System.out.println(bestList.size());
+		System.out.println(worstChosenSet);
+		bestList.remove(worstChosenSet);
+		System.out.println(bestList.size());
 		return bestList;
 	}
 
