@@ -166,7 +166,7 @@ public class DataObject {
 		SetObject tempWorstChosenSet = null;
 		float temp_costSizeRatio = Float.POSITIVE_INFINITY;
 		
-		Collections.reverse(sets);
+		//Collections.reverse(sets);
 		float worstCostSizeRatio = (float) sets.get(0).getCost() / sets.get(0).getElements().size();
 		SetObject worstChosenSet = sets.get(0);
 		// ATH essi lykkja á að fara út!!!!! það er bara til að skoða setinn
@@ -221,10 +221,10 @@ public class DataObject {
 		for(SetObject set: bestList){
 			System.out.println("one of the bests: " + set.getName());
 		}
-		System.out.println(bestList.size());
-		System.out.println(worstChosenSet);
-		bestList.remove(worstChosenSet);
-		System.out.println(bestList.size());
+//		System.out.println(bestList.size());
+//		System.out.println(worstChosenSet);
+//		bestList.remove(worstChosenSet);
+//		System.out.println(bestList.size());
 		return bestList;
 	}
 
