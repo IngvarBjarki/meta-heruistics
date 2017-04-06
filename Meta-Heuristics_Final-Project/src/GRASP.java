@@ -10,15 +10,21 @@ public class GRASP {
 		this.numSets = numSets;
 	}
 	
-	public void greedy(ArrayList<SetObject> sets){
+	public List<SetObject> greedy(ArrayList<SetObject> sets, SetObject startSet){
 		
 		float temp;
 		float optimal = Float.POSITIVE_INFINITY;
 		List<Integer> tempNotInComonElements = new ArrayList<Integer>();
 		List<Integer> currentElements = new ArrayList<Integer>();
+		List<SetObject> currentObjects = new ArrayList<SetObject>();
 		List<Integer> universe = new ArrayList<Integer>();
-
+		List<String> nameOfCurrentElements = new ArrayList<String>();
+		String tempElement = null;
+		SetObject tempObj = null;
 		
+		currentElements.addAll(startSet.getElements());
+		nameOfCurrentElements.add(startSet.getName());
+		currentObjects.add(startSet);
 		for(int i = 1; i <numElements; i++){
 			universe.add(i);
 		}
@@ -36,17 +42,20 @@ public class GRASP {
 										// rett
 
 				try {
-					temp = sets.get(i).getCost() / c.size();
+					temp = (float)sets.get(i).getCost() / c.size();
 				} catch (Exception e) {
 					System.out.println("divide by zero");
-					temp = 100000;
+					temp = Float.POSITIVE_INFINITY;
 				}
 
 				if (temp < optimal) {
 					k = i;
 					
 					optimal = temp;
-					tempNotInComonElements = c;					// heldur í while lykkjuni sem kemur að
+					tempNotInComonElements = c;
+					tempElement = sets.get(i).getName();
+					tempObj = sets.get(i);
+					// heldur í while lykkjuni sem kemur að
 										// ofan
 					// contains all fyrir while lykkjuna
 					System.out.println("TEMPNOTINCOMON");
@@ -57,9 +66,14 @@ public class GRASP {
 			}
 			optimal = 100000;
 			currentElements.addAll(tempNotInComonElements); // .eessu a ekki að vera í þessari lykju
+			nameOfCurrentElements.add(tempElement);
+			currentObjects.add(tempObj);
 			System.out.println(".etta er mengid " + (k+1));
 			System.out.println("UNIVERSE");
 			System.out.println(currentElements);
+			System.out.println("SETS");
+			System.out.println(nameOfCurrentElements);
 		}
+		return currentObjects;
 	}
 }
