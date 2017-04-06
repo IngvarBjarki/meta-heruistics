@@ -17,7 +17,8 @@ public class GRASP {
 		List<Integer> tempNotInComonElements = new ArrayList<Integer>();
 		List<Integer> currentElements = new ArrayList<Integer>();
 		List<Integer> universe = new ArrayList<Integer>();
-
+		List<String> nameOfCurrentElements = new ArrayList<String>();
+		String tempElement = null;
 		
 		for(int i = 1; i <numElements; i++){
 			universe.add(i);
@@ -36,17 +37,19 @@ public class GRASP {
 										// rett
 
 				try {
-					temp = sets.get(i).getCost() / c.size();
+					temp = (float)sets.get(i).getCost() / c.size();
 				} catch (Exception e) {
 					System.out.println("divide by zero");
-					temp = 100000;
+					temp = 1000000000;
 				}
 
 				if (temp < optimal) {
 					k = i;
 					
 					optimal = temp;
-					tempNotInComonElements = c;					// heldur í while lykkjuni sem kemur að
+					tempNotInComonElements = c;
+					tempElement = sets.get(i).getName();
+					// heldur í while lykkjuni sem kemur að
 										// ofan
 					// contains all fyrir while lykkjuna
 					System.out.println("TEMPNOTINCOMON");
@@ -57,9 +60,12 @@ public class GRASP {
 			}
 			optimal = 100000;
 			currentElements.addAll(tempNotInComonElements); // .eessu a ekki að vera í þessari lykju
+			nameOfCurrentElements.add(tempElement);
 			System.out.println(".etta er mengid " + (k+1));
 			System.out.println("UNIVERSE");
 			System.out.println(currentElements);
+			System.out.println("SETS");
+			System.out.println(nameOfCurrentElements);
 		}
 	}
 }
