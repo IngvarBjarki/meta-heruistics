@@ -35,9 +35,13 @@ public class Main {
 		System.out.println(rand.nextInt(RCL.size()));
 		System.out.println(rand.nextInt(RCL.size()));
 		
+
 		//data.getSets()--> are all the sets
 		HillClimber hill = new HillClimber(RCL.get(3),data.getSets(), numElements);
 		hill.calculateSolution(40);
+
+
+//		LNS har= new LNS(50,500,data.getSets(),bestSets.get(0));
 		
 		System.out.println("RCL");
 		System.out.println(RCL);
