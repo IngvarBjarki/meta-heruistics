@@ -9,10 +9,11 @@ public class Main {
 	
 	
 	public static void main(String[] args) throws IOException{
-		System.out.println("The final prject!");
-//		DataObject data = new DataObject("src/scpnrg1.txt");
-		DataObject data = new DataObject("src/scpe2.txt", 500);// data file and numSets
-		GRASP grasp = new GRASP(50,500); // args are numElements and numSbbsets
+		int numSets = 10000;
+		int numElements = 1000;
+		DataObject data = new DataObject("src/scpnrg2.txt", numSets);
+		//DataObject data = new DataObject("src/scpe2.txt", numSets);// data file and numSets
+		GRASP grasp = new GRASP(numElements,numSets); // args are numElements and numSbbsets
 		// Lets make the RCL List
 		List<SetObject> bestSets = data.kBest(5);
 		
@@ -34,8 +35,9 @@ public class Main {
 		System.out.println(rand.nextInt(RCL.size()));
 		System.out.println(rand.nextInt(RCL.size()));
 		
-		HillClimber hill = new HillClimber(RCL.get(0),data.getSets());
-		hill.calculateSolution(10);
+		//data.getSets()--> are all the sets
+		HillClimber hill = new HillClimber(RCL.get(3),data.getSets(), numElements);
+		hill.calculateSolution(40);
 		
 		System.out.println("RCL");
 		System.out.println(RCL);
@@ -43,6 +45,7 @@ public class Main {
 		System.out.println(RCL.get(0));
 		System.out.println(RCL.get(1));
 		System.out.println(RCL.get(4));
+		System.out.println(data.getSets().size());
 		
 		// construct local optimum
 		

@@ -58,9 +58,9 @@ public class GRASP {
 					// heldur í while lykkjuni sem kemur að
 										// ofan
 					// contains all fyrir while lykkjuna
-					System.out.println("TEMPNOTINCOMON");
-					System.out.println(tempNotInComonElements);
-					
+//					System.out.println("TEMPNOTINCOMON");
+//					System.out.println(tempNotInComonElements);
+//					
 				}
 
 			}
@@ -68,11 +68,11 @@ public class GRASP {
 			currentElements.addAll(tempNotInComonElements); // .eessu a ekki að vera í þessari lykju
 			nameOfCurrentElements.add(tempElement);
 			currentObjects.add(tempObj);
-			System.out.println(".etta er mengid " + (k+1));
-			System.out.println("UNIVERSE");
-			System.out.println(currentElements);
-			System.out.println("SETS");
-			System.out.println(nameOfCurrentElements);
+//			System.out.println(".etta er mengid " + (k+1));
+//			System.out.println("UNIVERSE");
+//			System.out.println(currentElements);
+//			System.out.println("SETS");
+//			System.out.println(nameOfCurrentElements);
 		}
 		return currentObjects;
 	}

@@ -25,8 +25,20 @@ public class SetObject {
 	public String getName() {
 		return name;
 	}
-
 	
+	public int getCost() {
+		return cost;
+	}
+	
+	public List<Integer> getElements() {
+		return elements;
+	}
+	
+	public void setElements(List<Integer> elements) {
+		this.elements = elements;
+	}
+
+
 	// =============================================== HASH CODE AND EQUALS ===============================================================
 	@Override
 	public int hashCode() {
@@ -54,13 +66,5 @@ public class SetObject {
 		return true;
 	}
 
-
-	public int getCost() {
-		return cost;
-	}
-	
-	public List<Integer> getElements() {
-		return elements;
-	}
  
 }
