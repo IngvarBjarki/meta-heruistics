@@ -37,19 +37,21 @@ public class Main {
 		
 
 		//data.getSets()--> are all the sets
-		HillClimber hill = new HillClimber(RCL.get(3),data.getSets(), numElements);
-		hill.calculateSolution(40);
-
-
-//		LNS har= new LNS(50,500,data.getSets(),bestSets.get(0));
 		
-		System.out.println("RCL");
-		System.out.println(RCL);
-		System.out.println(RCL.size());
-		System.out.println(RCL.get(0));
-		System.out.println(RCL.get(1));
-		System.out.println(RCL.get(4));
-		System.out.println(data.getSets().size());
+//		HillClimber hill = new HillClimber(RCL.get(3),data.getSets(), numElements);
+//		hill.calculateSolution(300);
+
+
+		LNS har= new LNS(1000,10000,data.getSets(),bestSets.get(0));
+		har.run(300);
+		
+//		System.out.println("RCL");
+//		System.out.println(RCL);
+//		System.out.println(RCL.size());
+//		System.out.println(RCL.get(0));
+//		System.out.println(RCL.get(1));
+//		System.out.println(RCL.get(4));
+//		System.out.println(data.getSets().size());
 		
 		// construct local optimum
 		
