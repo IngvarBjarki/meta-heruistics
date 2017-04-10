@@ -163,9 +163,9 @@ public class HillClimber {
 		return currentElements;
 	}
 
-	public void calculateSolution(long runlength) {
+	public int calculateSolution(long runlength) {
 		List<SetObject> solution = run(runlength);
-		float totalCost = 0;
+		int totalCost = 0;
 
 		for (SetObject set : solution) {
 			totalCost = totalCost + set.getCost();
@@ -173,6 +173,7 @@ public class HillClimber {
 		}
 
 		System.out.println("The totalCost is: " + totalCost);
+		return totalCost;
 
 	}
 
