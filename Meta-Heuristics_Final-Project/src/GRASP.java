@@ -25,16 +25,10 @@ public class GRASP {
 		currentElements.addAll(startSet.getElements());
 		nameOfCurrentElements.add(startSet.getName());
 		currentObjects.add(startSet);
-		for(int i = 1; i <numElements; i++){
+		for(int i = 1; i <numElements +1; i++){
 			universe.add(i);
 		}
 		
-		System.out.println("er i grasp");
-		System.out.println(sets.get(0));
-		System.out.println(sets.get(0).getName());
-
-		System.out.println(currentElements.containsAll(universe));
-		int k = 0;
 		while (!currentElements.containsAll(universe)) {
 			for (int i = 0; i < sets.size(); i++) {
 				List<Integer> c = new ArrayList<>(sets.get(i).getElements());
@@ -49,8 +43,6 @@ public class GRASP {
 				}
 
 				if (temp < optimal) {
-					k = i;
-					
 					optimal = temp;
 					tempNotInComonElements = c;
 					tempElement = sets.get(i).getName();
@@ -58,22 +50,20 @@ public class GRASP {
 					// heldur í while lykkjuni sem kemur að
 										// ofan
 					// contains all fyrir while lykkjuna
-//					System.out.println("TEMPNOTINCOMON");
-//					System.out.println(tempNotInComonElements);
 //					
 				}
 
 			}
-			optimal = 100000;
-			currentElements.addAll(tempNotInComonElements); // .eessu a ekki að vera í þessari lykju
+			currentElements.addAll(tempNotInComonElements); 
 			nameOfCurrentElements.add(tempElement);
 			currentObjects.add(tempObj);
-//			System.out.println(".etta er mengid " + (k+1));
-//			System.out.println("UNIVERSE");
-//			System.out.println(currentElements);
-//			System.out.println("SETS");
-//			System.out.println(nameOfCurrentElements);
+			optimal = Float.POSITIVE_INFINITY;
 		}
+		
+		for(SetObject set : currentObjects){
+			System.out.println("in the greedy: " +set.getName());
+		}
+		
 		return currentObjects;
 	}
 }

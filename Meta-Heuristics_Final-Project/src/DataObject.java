@@ -21,8 +21,8 @@ public class DataObject {
 
 	public DataObject(String Datafile, int numSets) throws IOException {
 		// TODO Auto-generated constructor stub
-		this.numSets = numSets;
 		System.out.println("DataObject starting..");
+		this.numSets = numSets;
 		this.DataFile = Datafile;
 		openFile(this.DataFile);
 		readFile();
@@ -60,7 +60,6 @@ public class DataObject {
 			if (numCount == -1) {
 
 				// some printing to look at, at the end, then, ofc, delete
-				System.out.println(sets.size());
 
 				// assigning the last "subset"
 				// SKOÐA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SEINASTA ELM
@@ -68,17 +67,6 @@ public class DataObject {
 				// ArrayList<Integer>(singleSet));
 
 				System.out.println("data is ready");
-				System.out.println(counter);
-
-				System.out.println("asdlfuahdglaudshgladsuighaldugajæsdigjasdg");
-				System.out.println(sets.get(400).getElements()); // 8 to get set
-																	// 9.. [0 is
-																	// 1]
-				System.out.println(sets.size());
-				System.out.println(sets.get(400).getElements().size());
-
-				System.out.println("asdlfuahdglaudshgladsuighaldugajæsdigjasdg");
-				System.out.println(numElement.size());
 
 				/*
 				 * System.out.println("index for all costs");
@@ -103,11 +91,8 @@ public class DataObject {
 					// the final value of this if setnace
 					// (if(counter<numColums)) is the first value
 					// that tells us how many are in the next set
-					System.out.println(counter);
 					setInElementSize = numCount;
 					numElement.add(setInElementSize);
-					System.out.println("this is numcount...");
-					System.out.println(setInElementSize);
 				}
 			} else {
 
@@ -159,7 +144,6 @@ public class DataObject {
 
 	public List<SetObject> kBest(int k) {
 		// this method selects the k best independent sets from our set.
-		System.out.println("Welcome to the kBEst fucntion");
 		
 		// Initilize variables
 		List<SetObject> bestList = new ArrayList<SetObject>();
@@ -190,7 +174,7 @@ public class DataObject {
 //					System.out.println("INGVARINGVARINGVAR  INGVAR............... INGVAR");
 				}
 			} else {
-//				System.out.println("temp_costRatio"+temp_costSizeRatio);
+				System.out.println("temp_costRatio "+temp_costSizeRatio);
 //				System.out.println("worstCostSizeRatio"+worstCostSizeRatio);
 				if (temp_costSizeRatio < worstCostSizeRatio) {
 					System.out.println("hallo! .........           .........");
@@ -199,14 +183,12 @@ public class DataObject {
 					//finding the worst value in the best list
 					boolean first = true;
 					for (SetObject set : bestList) {
-//			             System.out.println("Count is: asdfasdfasdfasdf");
 						if(first){
 							first = false;
 							worstChosenSet = set;
 						}
 			             float setRatio = (float) set.getCost() / set.getElements().size();
 			             float tempWorstChosenSetRatio = (float) worstChosenSet.getCost() / worstChosenSet.getElements().size();
-			             //System.out.println("setRatio " + setRatio + " tempWorstChosenSetRatio " + tempWorstChosenSetRatio);
 			             if(setRatio > tempWorstChosenSetRatio  ){
 			            	 System.out.println("hallo");
 			            	 worstChosenSet = set;
@@ -217,14 +199,9 @@ public class DataObject {
 				}
 			}
 		}
-//		System.out.println(bestList);
 		for(SetObject set: bestList){
 			System.out.println("one of the bests: " + set.getName());
 		}
-//		System.out.println(bestList.size());
-//		System.out.println(worstChosenSet);
-//		bestList.remove(worstChosenSet);
-//		System.out.println(bestList.size());
 		return bestList;
 	}
 

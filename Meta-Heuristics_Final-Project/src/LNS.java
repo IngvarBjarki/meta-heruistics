@@ -31,51 +31,48 @@ public class LNS {
 		da = new Date();
 
 		int tempSolutionValue = 99999999; // due to minimization
-		int currentSolutionValue = calculateSolution(currentSolution);
+		int currentSolutionValue = 999999;// calculateSolution(currentSolution);
 		int globalSolutionValue = calculateSolution(globalSolution);
-		int k = 0;
-
 
 		System.out.println("Starting LNS...");
-		 while(da.getTime() < max_sec){
-		 da = new Date();
-		 System.out.println(k);
-		 k++;
-		 
-		 // RANDOM DESTROY
-//		 System.out.println("destroy..");
-//		 remainsFromDestroy = destroy(currentSolution);
-		 
-		 // MOST SIMILAR DESTROY
-		 System.out.println("destroy..");
-		 remainsFromDestroy = destroySimilar(currentSolution);
-		 
-		 System.out.println("repair..");
-		 tempSolution = repair(this.sets, remainsFromDestroy);
-		 System.out.println("done repearing ..");
-		 
-		 
-		 if(calculateSolution(tempSolution) < currentSolutionValue){
-		 System.out.println("changed local solution..");
-		 currentSolution.clear();
-		 currentSolution = deepCopy(tempSolution);
-		 currentSolutionValue = calculateSolution(currentSolution);
-		 tempSolution.clear();
-		 }
-		
-		 if(currentSolutionValue < globalSolutionValue){
-		 System.out.println("changed global solution");
-		 globalSolution.clear();
-		 globalSolution = deepCopy(currentSolution);
-		 globalSolutionValue = calculateSolution(globalSolution); /// skoða hvernig reference er á int í java..
-		 }
-		 }
-		
-		 for(SetObject set : globalSolution){
-		 System.out.println("set " + set.getName() + " is used");
-		 }
-		 System.out.println("The solution from the LNS is: " +
-		 globalSolutionValue);
+		while (da.getTime() < max_sec) {
+			da = new Date();
+			// RANDOM DESTROY
+			System.out.println("Fyrir:" + currentSolution.size());
+			remainsFromDestroy = destroy(currentSolution);
+			System.out.println("Eftir" + currentSolution.size());
+			// remainsFromDestroy = destroySimilar(currentSolution); // MOST
+			// SIMILAR DESTROY
+			// List<SetObject> sets
+			tempSolution = repair(this.sets, remainsFromDestroy);
+			if (calculateSolution(tempSolution) < currentSolutionValue) {
+				System.out.println("changed local solution..");
+				currentSolution.clear();
+				currentSolution = deepCopy(tempSolution);
+				System.out.println(currentSolution.size());
+				currentSolutionValue = calculateSolution(currentSolution);
+				tempSolution.clear();
+			}
+			//
+
+			if (currentSolutionValue < globalSolutionValue) {
+				globalSolution.clear();
+				globalSolution = deepCopy(currentSolution);
+				globalSolutionValue = calculateSolution(globalSolution); /// skoða
+																			/// hvernig
+																			/// reference
+																			/// er
+																			/// á
+																			/// int
+																			/// í
+																			/// java..
+			}
+		}
+
+		for (SetObject set : globalSolution) {
+			System.out.println("set " + set.getName() + " is used");
+		}
+		System.out.println("The solution from the LNS is: " + globalSolutionValue);
 
 	}
 
@@ -83,31 +80,32 @@ public class LNS {
 
 		// the index here stands for the elements, making us able to select k
 		// max from this array for most similarities
+		
 		int[] similarities = new int[1000];
 		for (SetObject set : solution) {
 			for (int element : set.getElements()) {
-				System.out.println("printing..");
-				System.out.println(element);
 				similarities[element - 1] = similarities[element - 1] + 1;
 			}
 		}
-		System.out.println(Arrays.toString(similarities));
-		int[] kMaxElements = kMaxSimilarities(similarities, 3);
-		
-		// sidan forum vid i gegnum obj og hentum ut teim sem hafa indexinn sem eru i similaritites
+		int[] kMaxElements = kMaxSimilarities(similarities, 5);
+
+		// sidan forum vid i gegnum obj og hentum ut teim sem hafa indexinn sem
+		// eru i similaritites
 		boolean destroy = false;
-		List<SetObject> blabla = deepCopy(this.sets);
-		for(int restrictedElements : kMaxElements){
-			for(SetObject set : this.sets){
-				destroy = set.getElements().contains(restrictedElements);
-			if(destroy){
-				blabla.remove(set);
-				System.out.println("BOOM!");
+		List<SetObject> destroiedSolution = deepCopy(solution);
+		for (int i = 0; i < 3; i++) {
+			Random rand = new Random();
+			int destroyElement = kMaxElements[rand.nextInt(kMaxElements.length)];
+
+			for (SetObject set : solution) {
+				destroy = set.getElements().contains(destroyElement);
+				if (destroy) {
+					destroiedSolution.remove(set);
 				}
 			}
 		}
-		
-		return blabla;
+
+		return destroiedSolution;
 	}
 
 	public int[] kMaxSimilarities(int[] similaritites, int k) {
@@ -120,31 +118,21 @@ public class LNS {
 				kMaxIndexes[i] = i;
 				if (newNumber < similaritites[minMaxIndex]) {
 					minMaxIndex = i;
-					System.out.println("minMaxIndex " +minMaxIndex);
 				}
 				continue;
 			} else if (newNumber > similaritites[kMaxIndexes[minMaxIndex]]) {
-				//minMaxIndex = 0;
+				// minMaxIndex = 0;
 				kMaxIndexes[minMaxIndex] = i;
 				for (int j = 0; j < k; j++) {
 					if (similaritites[kMaxIndexes[minMaxIndex]] > similaritites[kMaxIndexes[j]]) {
-						//minMaxIndex = kMaxIndexes[j];
-						System.out.println(similaritites[kMaxIndexes[minMaxIndex]] + " is greater than " + similaritites[kMaxIndexes[j]]);
+						// minMaxIndex = kMaxIndexes[j];
 						minMaxIndex = j;
-						System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-						System.out.println(Arrays.toString(kMaxIndexes));
-						System.out.println(similaritites[kMaxIndexes[minMaxIndex]]);
 					}
-						
-					
+
 				}
 			}
 
 		}
-		System.out.println(Arrays.toString(kMaxIndexes));
-		System.out.println(similaritites[kMaxIndexes[0]]);
-		System.out.println(similaritites[kMaxIndexes[1]]);
-		System.out.println(similaritites[kMaxIndexes[2]]);
 		return kMaxIndexes;
 	}
 
@@ -232,27 +220,24 @@ public class LNS {
 															// lykju
 			nameOfCurrentElements.add(tempElement);
 			currentObjects.add(tempObj);
-			// System.out.println(".etta er mengid " + (k + 1));
-			// System.out.println("UNIVERSE");
-			// System.out.println(currentElements);
-			// System.out.println("SETS");
-			// System.out.println(nameOfCurrentElements);
 		}
 		return currentObjects;
-		// Destroy(currentObjects);
 	}
 
 	public List<SetObject> destroy(List<SetObject> solution) {
-		int CoversRemoved = 7; // This is how many covers at random we will
+
+		List<SetObject> tempSolution = deepCopy(solution);
+		System.out.println("tempSolution: " + tempSolution.size());
+		int CoversRemoved = 25; // This is how many covers at random we will
 								// remove at random from the initial
 								// solution(often denoted as p)
 		Random rand = new Random();
 		for (int i = 1; i < CoversRemoved; i++) {
-			solution.remove(solution.get(rand.nextInt(solution.size())));
+			tempSolution.remove(tempSolution.get(rand.nextInt(tempSolution.size())));
 
 		}
 		// repair(this.sets,solution);
-		return solution;
+		return tempSolution;
 	}
 
 	private List<Integer> getIntegerSolution(List<SetObject> FromDestroy) {
