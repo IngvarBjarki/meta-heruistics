@@ -11,9 +11,10 @@ public class Main {
 	public static void main(String[] args) throws IOException{
 		int numSets = 10000;
 		int numElements = 1000;
-		DataObject data = new DataObject("src/scpnrg2.txt", numSets);
+		DataObject data = new DataObject("src/scpnrg5.txt", numSets);
 		//DataObject data = new DataObject("src/scpe2.txt", numSets);// data file and numSets
 		GRASP grasp = new GRASP(numElements,numSets); // args are numElements and numSbbsets
+		//int Beta = 0;
 		// Lets make the RCL List
 		List<SetObject> bestSets = data.kBest(5);
 		

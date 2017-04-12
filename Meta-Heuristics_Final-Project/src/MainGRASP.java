@@ -18,7 +18,7 @@ public class MainGRASP {
 				
 				DataObject data = new DataObject(("src/" + dataset), numSets);
 				GRASP1 grasp = new GRASP1(numElements, numSets, data.getSets());
-				int solution = grasp.run(100);
+				int solution = grasp.run(10);
 				
 				
 				stringBuilder.append("Profiles: " + ";" + dataset + ";");

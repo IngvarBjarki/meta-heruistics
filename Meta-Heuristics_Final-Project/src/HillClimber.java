@@ -174,6 +174,7 @@ public class HillClimber {
 
 		System.out.println("The totalCost is: " + totalCost);
 		return totalCost;
+
 	}
 
 	private List<SetObject> deepCopy(List<SetObject> currentSolution) {
