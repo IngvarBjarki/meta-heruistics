@@ -2,37 +2,32 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class MainGRASP {
+public class MainLNS {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		int numSets = 10000;//500
-		int numElements = 1000; //50
-		
-		//int[] betas = {2, 4, 8, 16, 32};
-		int[] betas = {2};
-		String[] probfiles = {"scpnrg2.txt"};
-		PrintWriter printWriter = new PrintWriter(new File("tuning_testII.csv"));
-		for(String dataset: probfiles){
+		int numSets = 500;// 10000;
+		int numElements = 50;// 1000;
+
+		int[] betas = { 2, 4, 8, 16, 32 };
+		String[] probfiles = { "scpe2.txt" };
+		PrintWriter printWriter = new PrintWriter(new File("tuning_test_LNS.csv"));
+		for (String dataset : probfiles) {
 			StringBuilder stringBuilder = new StringBuilder();
-			for(int beta: betas){
-				
+			for (int beta : betas) {
+
 				DataObject data = new DataObject(("src/" + dataset), numSets);
-				GRASP1 grasp = new GRASP1(numElements, numSets, data.getSets());
-				int solution = grasp.run(10);
-				
+				LNS lns = new LNS(numElements, numSets, data.getSets());
+				int solution = lns.run(50);
 				
 				stringBuilder.append("Profiles: " + ";" + dataset + ";");
 				stringBuilder.append("The beta value: " + ";" + beta + ";");
-				stringBuilder.append("ItrationCount" + ";" + grasp.itrationCount + ";");
+				stringBuilder.append("ItrationCount" + ";" + lns.itrationCount + ";");
 				stringBuilder.append("Solution value: " + ";" + solution + "\n");
-				
+
 			}
 			printWriter.write(stringBuilder.toString());
 		}
 		printWriter.close();
-		System.out.println("done");
-
 	}
-
 }

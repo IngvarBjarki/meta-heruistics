@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -32,6 +33,7 @@ public class GRASP1 {
 		long max_sec = start_time + 1000 * runlength;
 		da = new Date();
 
+		System.out.println("Starting GRASP");
 		// GRASP STARTS
 		while(da.getTime() < max_sec){
 			da = new Date();
@@ -46,8 +48,9 @@ public class GRASP1 {
 			RCL.clear();
 			allSets.remove(choosenSet);
 			
-			
+			System.out.println("CurrentElements" + currentElements);
 		}
+		currentElements.clear();
 		
 		System.out.println("total cost for randomized greedy is " + calculateSolution(currentElementObj));
 		for(SetObject set: currentElementObj){
@@ -78,7 +81,7 @@ public class GRASP1 {
 		
 		ArrayList<SetObject> RCL = new ArrayList<SetObject>();
 		List<SetObject> allSetsCopy = deepCopy(allSets);
-		List<Integer> currentElementsCopy = deepCopyInteger(currentElements);
+		HashSet<Integer> currentElementsCopy = deepCopyIntegerH(currentElements);
 		
 		float tempBest = Float.POSITIVE_INFINITY; // due to minimization
 		SetObject tempBestObj = null;
@@ -117,7 +120,16 @@ public class GRASP1 {
 		}
 		
 		return tempList;
+	}
+	
+private HashSet<Integer> deepCopyIntegerH(List<Integer> list){
 		
+		HashSet<Integer> tempList = new HashSet<Integer>();
+		for(Integer value: list){
+			tempList.add(value);
+		}
+		
+		return tempList;
 	}
 
 	private List<SetObject> deepCopy(List<SetObject> currentSolution) {

@@ -43,8 +43,8 @@ public class Main {
 //		hill.calculateSolution(300);
 
 
-		LNS har= new LNS(1000,10000,data.getSets(),bestSets.get(0));
-		har.run(30);
+//		LNS har= new LNS(1000,10000,data.getSets(),bestSets.get(0));
+//		har.run(30);
 		
 //		System.out.println("RCL");
 //		System.out.println(RCL);
