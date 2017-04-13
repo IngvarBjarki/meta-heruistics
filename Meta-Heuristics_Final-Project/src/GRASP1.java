@@ -38,17 +38,18 @@ public class GRASP1 {
 		while(da.getTime() < max_sec){
 			da = new Date();
 		// greedy randomized
+		List<SetObject> allSetsCopy = deepCopy(allSets);
 		while (!currentElements.containsAll(universe)) {
 			Random rand = new Random();
-			RCL = makeRCL(RCLsize, allSets, currentElements);
+			RCL = makeRCL(RCLsize, allSetsCopy, currentElements);
 			int random = rand.nextInt(RCL.size());
 			SetObject choosenSet = RCL.get(random);
 			currentElements.addAll(choosenSet.getElements());
 			currentElementObj.add(choosenSet);
 			RCL.clear();
-			allSets.remove(choosenSet);
+			allSetsCopy.remove(choosenSet);
 			
-			System.out.println("CurrentElements" + currentElements);
+//			System.out.println("CurrentElements" + currentElements);
 		}
 		currentElements.clear();
 		
