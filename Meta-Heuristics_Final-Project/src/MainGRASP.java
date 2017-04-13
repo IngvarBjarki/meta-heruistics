@@ -16,10 +16,10 @@ public class MainGRASP {
 		for(String dataset: probfiles){
 			StringBuilder stringBuilder = new StringBuilder();
 			for(int beta: betas){
-				
+				int RCLsize = 3;
 				DataObject data = new DataObject(("src/" + dataset), numSets);
 				GRASP1 grasp = new GRASP1(numElements, numSets, data.getSets());
-				int solution = grasp.run(10);
+				int solution = grasp.run(10, RCLsize);
 				
 				
 				stringBuilder.append("Profiles: " + ";" + dataset + ";");

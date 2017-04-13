@@ -18,7 +18,7 @@ public class GRASP1 {
 		this.allSets = allSets;
 	}
 
-	public int run(long runlength) {
+	public int run(long runlength, int RCLsize) {
 		// initialization 
 		List<SetObject> allSets = deepCopy(this.allSets); 
 		ArrayList<SetObject> RCL = new ArrayList<SetObject>();
@@ -40,7 +40,7 @@ public class GRASP1 {
 		// greedy randomized
 		while (!currentElements.containsAll(universe)) {
 			Random rand = new Random();
-			RCL = makeRCL(5, allSets, currentElements);
+			RCL = makeRCL(RCLsize, allSets, currentElements);
 			int random = rand.nextInt(RCL.size());
 			SetObject choosenSet = RCL.get(random);
 			currentElements.addAll(choosenSet.getElements());
