@@ -6,15 +6,15 @@ public class MainGRASP {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		int numSets = 500;//10000;//500
-		int numElements = 50;//1000; //50
+		int numSets = 10000;//10000;//500
+		int numElements = 1000;//1000; //50
 		
-		int[] betas = {2, 4, 8, 16, 32};
-		String[] probfiles = {"scpnrg1.txt", "scpnrg2.txt", "scpnrg5.txt"};
+//		int[] betas = {2, 4, 8, 16, 32};
+//		String[] probfiles = {"scpnrg1.txt", "scpnrg2.txt", "scpnrg5.txt"};
 //		String[] probfiles = {"scpnrh1.txt", "scpnrh3.txt", "scpnrh5.txt"};
-//		int[] betas = {5};
-//		String[] probfiles = {"scpe2.txt"};
-		int numTimesRun = 3;
+		int[] betas = {5};
+		String[] probfiles = {"scpnrg1.txt", "scpnrg5.txt"};
+		int numTimesRun = 1;
 		int runningTime = 10;
 		PrintWriter printWriter = new PrintWriter(new File("tuning_testIII.csv"));
 		for(String dataset: probfiles){

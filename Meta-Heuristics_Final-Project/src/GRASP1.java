@@ -60,7 +60,11 @@ public class GRASP1 {
 		
 		// local search
 		HillClimber hill = new HillClimber(currentElementObj, allSets, numElements);
-		int tempSolution = hill.calculateSolution(30);
+		int tempSolution = hill.calculateSolution(45);
+		
+//		HillClimberWithDelta hill = new HillClimberWithDelta(currentElementObj, allSets, numElements);
+//		int tempSolution = hill.calculateSolution(45);
+		
 		if(tempSolution<solution){
 			solution = tempSolution;
 		}

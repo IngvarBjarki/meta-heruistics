@@ -1,11 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class HillClimber {
 
-	private List<SetObject> solution;
+    private List<SetObject> solution;
 	private List<SetObject> all_sets;
 	private int IterationCount = 0;
 	private int numElements = 0;
@@ -39,10 +38,9 @@ public class HillClimber {
 		List<Integer> currentElements = new ArrayList<Integer>();
 		List<Integer> universe = new ArrayList<Integer>();
 		List<SetObject> tempChooseBestOfTowSolutionObj = new ArrayList<SetObject>();
+	
 		List<SetObject> tempSolution = new ArrayList<SetObject>(solution);
 
-	
-		
 		for (SetObject set : solution) {
 			System.out.println("this set was in greedy solution: " + set.getName());
 		}
@@ -89,6 +87,7 @@ public class HillClimber {
 //					continue;
 
 				}
+				tempChooseBestOfTowSolutionObj.add(solutionSet); //bætti þessu við til að laga runnið
 				for (SetObject setOfAllSets : all_sets) {
 					tempSolution.add(setOfAllSets);
 					currentElements = getElementsInCurrentSolution(tempSolution);
@@ -105,18 +104,18 @@ public class HillClimber {
 							solution_changed = true;
 							solution_changed_In_Itreation = true;
 							tempChooseBestOfTowSolutionObj.add(setOfAllSets); // hofum bara 2 object i þessum... sem á að skipta á til að athuga hað er best...bera saman bestu 2 skiptingarnar a gefnum tima
-							most_decreased_cost = tempChooseBestOfTowSolutionObj.get(0).getCost() < tempChooseBestOfTowSolutionObj.get(1).getCost(); 
+							most_decreased_cost = !(tempChooseBestOfTowSolutionObj.get(0).getCost() < tempChooseBestOfTowSolutionObj.get(1).getCost()); 
 							if(most_decreased_cost){
-								tempChooseBestOfTowSolutionObj.remove(1);
-								tempSolution.remove(tempChooseBestOfTowSolutionObj.get(1));
+								tempSolution.remove(tempChooseBestOfTowSolutionObj.get(0));
+								tempChooseBestOfTowSolutionObj.remove(0);
 							}
 							else{
-								tempChooseBestOfTowSolutionObj.remove(0);
-								tempSolution.remove(tempChooseBestOfTowSolutionObj.get(0));
+								tempSolution.remove(tempChooseBestOfTowSolutionObj.get(1));
+								tempChooseBestOfTowSolutionObj.remove(1);
 							}
 						}
 					}
-
+					
 					if (!(constraint_met && decreased_cost)) {
 						// if the set does not improve our solution we remove it
 //						System.out.println("nothing happend, add the set again and remove the setofallsets");
@@ -191,21 +190,5 @@ public class HillClimber {
 
 		return tempSolution;
 	}
-	
-	private List<SetObject> deltaEvulation(List<SetObject> currentSolution, List<SetObject> delateElements, List<SetObject> addElements){
-		
-		for(SetObject set: delateElements){
-			currentSolution.remove(set);
-		}
-		
-		for(SetObject set: addElements){
-			currentSolution.add(set);
-		}
-		
-		return currentSolution;
-	}
 
 }
-
-
-

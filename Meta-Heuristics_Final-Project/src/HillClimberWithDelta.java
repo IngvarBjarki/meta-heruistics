@@ -92,7 +92,8 @@ public class HillClimberWithDelta {
 							solution_changed = true;
 							solution_changed_In_Itreation = true;
 							tempChooseBestOfTowSolutionObj.add(setOfAllSets); // hofum
-																				// bara
+							addElements.add(setOfAllSets);
+							deleateElements.add(solutionSet);// bara
 																				// 2
 																				// object
 																				// i
@@ -120,9 +121,11 @@ public class HillClimberWithDelta {
 							if (most_decreased_cost) {
 								tempChooseBestOfTowSolutionObj.remove(1);
 								tempSolution.remove(tempChooseBestOfTowSolutionObj.get(1));
+								addElements.remove(tempChooseBestOfTowSolutionObj.get(1));
 							} else {
 								tempChooseBestOfTowSolutionObj.remove(0);
 								tempSolution.remove(tempChooseBestOfTowSolutionObj.get(0));
+								addElements.remove(tempChooseBestOfTowSolutionObj.get(0));
 							}
 						}
 					}
@@ -132,6 +135,7 @@ public class HillClimberWithDelta {
 						// System.out.println("nothing happend, add the set
 						// again and remove the setofallsets");
 						tempSolution.remove(setOfAllSets);
+						
 						// tempSolution.add(solutionSet);
 					}
 					// initialize the constraints for the next setObject
@@ -149,8 +153,11 @@ public class HillClimberWithDelta {
 			}
 			if (solution_changed) {
 				System.out.println("We have sucessfully changed our solution..");
-				solution.clear();
-				solution = deepCopy(tempSolution);
+//				solution.clear();
+//				solution = deepCopy(tempSolution);
+				solution = deltaEvulation(solution, deleateElements, addElements);
+				deleateElements.clear();
+				addElements.clear();
 				solution_changed = false;
 			} else {
 				System.out.println("tempSolution" + tempSolution.size());
@@ -200,6 +207,19 @@ public class HillClimberWithDelta {
 		}
 
 		return tempSolution;
+	}
+	
+	private List<SetObject> deltaEvulation(List<SetObject> currentSolution, List<SetObject> delateElements, List<SetObject> addElements){
+		
+		for(SetObject set: delateElements){
+			currentSolution.remove(set);
+		}
+		
+		for(SetObject set: addElements){
+			currentSolution.add(set);
+		}
+		
+		return currentSolution;
 	}
 
 }
